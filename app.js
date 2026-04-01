@@ -811,7 +811,7 @@
   });
 
   // ---------- PIN Lock ----------
-  var PIN_CODE = '1988';
+  var PIN_CODE = '2727';
   var PIN_SESSION_KEY = 'jw-pin-unlocked';
 
   var pinLockBtn = document.getElementById('pinLockBtn');

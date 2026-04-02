@@ -446,6 +446,7 @@
 
   // Section metadata for breakdown
   var sectionMap = {
+    'b3': 'The Big 3',
     'd1': 'Day 1 — Pull / Lower',
     'd2': 'Day 2 — Push / Upper',
     'd3': 'Day 3 — Pull / Upper',
@@ -453,6 +454,7 @@
   };
 
   function getSectionKey(exerciseId) {
+    if (exerciseId.startsWith('b3-')) return 'b3';
     if (exerciseId.startsWith('d1-')) return 'd1';
     if (exerciseId.startsWith('d2-')) return 'd2';
     if (exerciseId.startsWith('d3-')) return 'd3';
@@ -541,7 +543,7 @@
 
     // Target pace: what % of weekly targets should be done by now vs what's actually done
     // EDIT THESE — times per week each section's exercises should be completed
-    var weeklyTargetMultipliers = { d1: 1, d2: 1, d3: 1, d4: 1 };
+    var weeklyTargetMultipliers = { b3: 3.5, d1: 1, d2: 1, d3: 1, d4: 1 };
     var sectionExCounts = {};
     checkboxes.forEach(function (cb) {
       var card = cb.closest('.exercise-card');
@@ -561,7 +563,7 @@
 
     var totalTarget = 0;
     var totalDone = 0;
-    var sectionOrder = ['d1', 'd2', 'd3', 'd4'];
+    var sectionOrder = ['b3', 'd1', 'd2', 'd3', 'd4'];
     sectionOrder.forEach(function (sk) {
       totalTarget += Math.ceil((sectionExCounts[sk] || 0) * (weeklyTargetMultipliers[sk] || 2));
       totalDone += (sectionTotals[sk] || 0);
@@ -614,7 +616,7 @@
         div.className = 'stats-day-card' + (isToday ? ' today' : '') + (isFuture ? ' future' : '');
 
         var barsHtml = '<div class="stats-day-name">' + formatDate(day.date) + '</div>';
-        var sectionOrder = ['d1', 'd2', 'd3', 'd4'];
+        var sectionOrder = ['b3', 'd1', 'd2', 'd3', 'd4'];
         sectionOrder.forEach(function (sk) {
           var done = daySectionDone[sk] || 0;
           var total = sectionExCounts[sk] || 0;
@@ -636,7 +638,7 @@
     var targetsEl = document.getElementById('statsWeeklyTargets');
     if (targetsEl) {
       targetsEl.innerHTML = '';
-      var sectionOrder = ['d1', 'd2', 'd3', 'd4'];
+      var sectionOrder = ['b3', 'd1', 'd2', 'd3', 'd4'];
       sectionOrder.forEach(function (sk) {
         var exCount = sectionExCounts[sk] || 0;
         var target = Math.ceil(exCount * (weeklyTargetMultipliers[sk] || 2));
